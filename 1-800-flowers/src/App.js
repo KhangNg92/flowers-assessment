@@ -4,10 +4,7 @@ import './App.css';
 import PostDetail from './components/PostDetail';
 import SearchInput from './components/SearchInput';
 import { getPostsStart } from './redux/slices/postsSlice';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import Slide from '@mui/material/Slide';
 import MuiAlert from '@mui/material/Alert';
 
 const App = () => {
@@ -23,10 +20,10 @@ const App = () => {
     dispatch(getPostsStart())
   }, [dispatch])
 
-  useEffect(() => {
-    const newPostFound = [...posts].find(({ id }) => postFound.id === id)
-    setPostFound({ ...newPostFound })
-  }, [posts])
+  // useEffect(() => {
+  //   const newPostFound = [...posts].find(({ id }) => postFound.id === id)
+  //   setPostFound({ ...newPostFound })
+  // }, [posts])
 
   const onPostChange = (val) => {
     const foundPost = posts.find(({ title }) => title === val)
@@ -43,13 +40,13 @@ const App = () => {
 
   return (
     <div style={{ alignItems: 'center' }}>
-      {!!posts.length && !isLoading && !error && <SearchInput title={posts.map(({ title }) => title)} postChange={onPostChange} updatedPost={updatedPost} />}
+      {!!posts.length && posts && !isLoading && !error && <SearchInput title={posts.map(({ title }) => title)} postChange={onPostChange} updatedPost={updatedPost} />}
       <div style={{ marginLeft: '38%', marginTop: 50 }}>
         {postFound && !!Object.keys(postFound).length && <PostDetail post={postFound} openSuccess={openSuccess} />}
       </div>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
+          You have updated <h5>{updatedPost.title}</h5> !!
         </Alert>
       </Snackbar>
     </div>

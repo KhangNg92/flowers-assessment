@@ -1,21 +1,19 @@
-import { useEffect } from 'react';
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import Edit from '@mui/icons-material/Edit';
 import Save from '@mui/icons-material/Save';
 import { updatePostSlice } from '../redux/slices/postsSlice';
-// import SendIcon from '@mui/icons-material/Send';
+
 const PostDetail = ({ post: { title, body, id, userId }, openSuccess }) => {
     const [isEditing, setIsEditing] = useState(false)
-    const { posts } = useSelector(state => state.posts)
     const [postEdit, setPostEdit] = useState({
         title,
         body,
@@ -32,7 +30,7 @@ const PostDetail = ({ post: { title, body, id, userId }, openSuccess }) => {
     const handleChange = (e) => setPostEdit({ ...postEdit, [e.target.name]: e.target.value })
 
     return (
-        <div style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ justifyContent: 'center', alignItems: 'center' }} data-testId="post-detail">
             <Card sx={{ maxWidth: 345, alignSelf: 'center' }}>
                 <CardContent>
                     {!isEditing ?
@@ -44,12 +42,13 @@ const PostDetail = ({ post: { title, body, id, userId }, openSuccess }) => {
                                 {body}
                             </Typography> </> :
                         <>
-                            <TextField value={postEdit.title} label="Title" name="title"
+                            <TextField value={postEdit.title} label="Title" name="title" data-testId="title-edit"
                                 onChange={handleChange} />
                             <TextField value={postEdit.body} multiline style={{ marginTop: 20, width: '100%' }}
                                 label="Body"
                                 name="body"
                                 onChange={handleChange}
+                                data-testId="body-edit"
                             />
                         </>
                     }
@@ -60,7 +59,9 @@ const PostDetail = ({ post: { title, body, id, userId }, openSuccess }) => {
                         startIcon={<Edit />}
                         variant='outlined'
                         style={{ backgroundColor: 'green', color: 'white' }}
-                        onClick={() => setIsEditing(true)}>Edit</Button>
+                        onClick={() => setIsEditing(true)}
+                        data-testId="edit-button"
+                    >Edit</Button>
                         : <>
                             <Button style={{ backgroundColor: 'red', color: 'white' }}
                                 onClick={() => setIsEditing(false)}>  Cancel</Button>

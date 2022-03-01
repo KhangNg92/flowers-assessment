@@ -1,8 +1,0 @@
-{
-    "plugins": [
-        "@babel/plugin-syntax-jsx"
-    ],
-    "transform": {
-        "\\.[jt]sx?$": "babel-jest"
-    },
-}

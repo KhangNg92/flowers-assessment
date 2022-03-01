@@ -1,10 +1,9 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useDispatch } from 'react-redux';
-import { clearUpdatedPostSlice } from '../redux/slices/postsSlice';
 
-const SearchInput = ({ title, postChange, updatedPost }) => {
+
+const SearchInput = ({ title, postChange }) => {
     return (
         <div style={{ marginTop: 50, marginLeft: '40%' }}>
             <Autocomplete
@@ -17,6 +16,9 @@ const SearchInput = ({ title, postChange, updatedPost }) => {
                     return <TextField {...params}
                         autoFocus
                         label="Search your Title Here"
+                        name="search-input"
+                        data-testId="search-input"
+                        id="search-input"
                     />
                 }}
             />
